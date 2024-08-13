@@ -1,9 +1,23 @@
-const tmdbKey = '';
-const tmdbBaseUrl = '';
+const tmdbKey = 'd0a435e1cd57852951ac4f2004ce2d7f';
+const tmdbBaseUrl = 'https://api.themoviedb.org/3';
 const playBtn = document.getElementById('playBtn');
 
-const getGenres = () => {
+const getGenres = async () => {
+    const genreRequestEndpoint = "https://api.themoviedb.org/3/genre/movie/list";
+    const requestParams = `?api_key=${tmdbKey}`
+    const urlToFetch = tmdbBaseUrl + genreRequestEndpoint + requestParams; 
 
+    try {
+        const response = await fetch(urlToFetch); 
+        if (response.ok) {
+            const jsonResponse = await response.json(); 
+            return jsonResponse.genres; 
+        }
+
+    }
+    catch (error) {
+        console.log(error); 
+    }
 };
 
 const getMovies = () => {
